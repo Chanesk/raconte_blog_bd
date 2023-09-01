@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const Raconte = require('./models/raconte');
-
+const raconteRoutes = require('./routes/raconte');
+const userRoutes = require('./routes/user')
 
 app.use(express.json());
 
@@ -19,16 +19,7 @@ mongoose.connect('mongodb+srv://admin:xM8gSCsVESaCvuVX@cluster0.ta1dmua.mongodb.
   next();
 });
 
-app.get('/:id', (req, res, next) => {
-  Raconte.findOne({ _id: req.params.id })
-    .then(raconte => res.status(200).json(raconte))
-    .catch(error => res.status(404).json({ error }));
-});
-
-app.get('/', (req, res, next) => {
-  Raconte.find()
-    .then(racontes => res.status(200).json(racontes))
-    .catch(error => res.status(400).json({ error }));
-});
+app.use('/api/raconte', raconteRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
