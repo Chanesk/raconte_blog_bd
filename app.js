@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const raconteRoutes = require('./routes/raconte');
+const userRoutes = require('./routes/user')
+
+app.use(express.json());
 
 mongoose.connect('mongodb+srv://admin:xM8gSCsVESaCvuVX@cluster0.ta1dmua.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -15,8 +19,7 @@ mongoose.connect('mongodb+srv://admin:xM8gSCsVESaCvuVX@cluster0.ta1dmua.mongodb.
   next();
 });
 
-app.use((req,res)=>{
-    res.json({message: 'le nouveau appli'})
-})
+app.use('/api/raconte', raconteRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
