@@ -29,7 +29,6 @@ const connectDB = async () => {
   next();
 });
 
-
 app.use('/api/raconte', raconteRoutes);
 app.use('/api/auth', userRoutes);
 
